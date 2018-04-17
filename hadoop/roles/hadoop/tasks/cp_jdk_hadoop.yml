@@ -1,0 +1,24 @@
+---
+- name: mkdir /export/App
+  file:
+    path: /export/App
+    state: directory
+    owner: hadoop
+    group: hadoop
+
+- name: Extract hadoop-2.6.1.tar.gz  into /export/App
+  unarchive:
+    creates: /export/App/hadoop-2.6.1
+    src: hadoop-2.6.1.tar.gz
+    dest: /export/App
+    owner: hadoop
+    group: hadoop
+
+- name: Extract jdk1.8.0_60.tar.gz  into /export/App
+  unarchive:
+    creates: /export/App/jdk1.8.0_60
+    src: jdk1.8.0_60.tar.gz
+    dest: /export/App
+    owner: hadoop
+    group: hadoop
+

@@ -1,0 +1,13 @@
+[Unit]
+Description=Kubernetes Scheduler Plugin
+Documentation=https://github.com/GoogleCloudPlatform/kubernetes
+
+[Service]
+ExecStart=/export/servers/kubernetes/server/bin/kube-proxy \
+    --master=https://192.168.10.20 \
+    --kubeconfig=/etc/kubernetes/kubelet-kubeconfig
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

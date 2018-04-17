@@ -1,0 +1,8 @@
+---
+
+- name: config hosts
+  hosts: kafka3
+  
+  roles:
+    - common
+    - hadoop

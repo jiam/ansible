@@ -1,0 +1,91 @@
+---
+
+- name: mkdir /etc/kubernetes
+  file:
+    path: /etc/kubernetes/
+    state: directory
+  tags: k8s-cert
+
+- name: copy cert
+  copy:
+    src: ssl/cert/*
+    dest: /etc/kubernetes/ssl
+  tags: k8s-cert
+
+- name: copy kube-apiserver systemd config
+  template:
+    src: kube-apiserver.service.j2 
+    dest: /etc/systemd/system/kube-apiserver.service
+  tags: k8s-api
+
+- name: copy k8s
+  unarchive: 
+    creates: /export/servers/kubernetes
+    src: kubernetes-server-linux-amd64.tar.gz
+    dest: /export/servers
+  tags: 
+    - k8s-api
+    - k8s-copy
+
+- name: reload systemd
+  shell: systemctl daemon-reload
+  tags: 
+    - k8s-api
+
+- name: start kube-apiserver
+  service:
+    name: kube-apiserver
+    state: started
+  tags: k8s-api
+
+
+- name: copy cm-kubeconfig
+  copy:
+    src: kube-config/cm-kubeconfig
+    dest: /etc/kubernetes/cm-kubeconfig
+  tags:
+    -  k8s-cm
+
+- name: copy kube-cm systemd config
+  template:
+    src: kube-controller-manager.service.j2
+    dest: /etc/systemd/system/kube-controller-manager.service
+  tags: 
+    - k8s-cm
+
+- name: reload systemd
+  shell: systemctl daemon-reload
+  tags:
+    - k8s-cm
+
+- name: start kube-controller-manager
+  service:
+    name: kube-controller-manager
+    state: restarted
+  tags: k8s-cm
+
+- name: copy sh-kubeconfig
+  copy:
+    src: kube-config/sh-kubeconfig
+    dest: /etc/kubernetes/sh-kubeconfig
+  tags:
+    -  k8s-sh
+
+- name: copy kube-sh systemd config
+  template:
+    src: kube-scheduler.service.j2
+    dest: /etc/systemd/system/kube-scheduler.service
+  tags:
+    - k8s-sh
+
+- name: reload systemd
+  shell: systemctl daemon-reload
+  tags:
+    - k8s-sh
+
+- name: start kube-scheduler
+  service:
+    name: kube-scheduler
+    state: restarted
+  tags: k8s-sh
+ 

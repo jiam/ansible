@@ -1,0 +1,16 @@
+---
+
+- name: stop kafka1
+  become: true
+  become_method: su
+  shell: /export/App/kafka_2.11-0.10.1.1/bin/kafka-server-stop.sh 
+  become_user: hadoop
+  tags: stop_kafka1
+
+- name: stop kafka2
+  become: true
+  become_method: su
+  shell: /export/App/kafka_2.10-0.8.2.1/bin/kafka-server-stop.sh 
+  become_user: hadoop
+  tags: stop_kafka2
+ 

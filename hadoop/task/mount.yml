@@ -1,0 +1,26 @@
+---
+- hosts: all
+  tasks: 
+
+  - name: mkdir mount point
+    file:
+      path: '/{{ item.src }}'
+      state: directory
+    with_items:
+      - { src: 'data0'}
+      - { src: 'data1'}
+      - { src: 'data2'}
+      - { src: 'data3'}
+  
+  - name: mount sd* xfs
+    mount: 
+      src: '/dev/{{ item.src }}' 
+      path: '/{{ item.dest }}' 
+      fstype: xfs
+      opts: noatime
+      state: mounted
+    with_items:
+      - { src: 'sdb', dest: 'data0' }
+      - { src: 'sdc', dest: 'data1' }
+      - { src: 'sdd', dest: 'data2' }
+      - { src: 'sde', dest: 'data3' }

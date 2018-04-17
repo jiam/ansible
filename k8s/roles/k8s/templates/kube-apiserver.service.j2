@@ -1,0 +1,29 @@
+[Unit]
+Description=Kubernetes API Server
+Documentation=https://github.com/GoogleCloudPlatform/kubernetes
+After=network.target
+After=etcd.service
+
+[Service]
+# EnvironmentFile=-/export/servers/kubernetes/environ/apiserver
+ExecStart=/export/servers/kubernetes/server/bin/kube-apiserver \
+     --bind-address=0.0.0.0 \
+     --etcd-servers=http://192.168.10.20:2379,http://192.168.10.21:2379,http://192.168.10.22:2379 \
+     --allow-privileged=true \
+     --service-cluster-ip-range=10.3.0.0/24 \
+     --secure-port=443 \
+     --admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,ResourceQuota \
+     --tls-cert-file=/etc/kubernetes/ssl/cert/apiserver.pem \
+     --tls-private-key-file=/etc/kubernetes/ssl/cert/apiserver-key.pem \
+     --client-ca-file=/etc/kubernetes/ssl/cert/ca.pem \
+     --service-account-key-file=/etc/kubernetes/ssl/cert/apiserver-key.pem \
+     --runtime-config=extensions/v1beta1/networkpolicies=true \
+     --apiserver-count=3 \
+     --anonymous-auth=false
+  
+Restart=on-failure
+Type=notify
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

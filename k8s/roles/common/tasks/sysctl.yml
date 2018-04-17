@@ -1,0 +1,6 @@
+---
+
+- name: /etc/sysctl.d/hadoop-sysctl.conf
+  copy: src=hadoop-sysctl.conf dest=/etc/sysctl.d/hadoop-sysctl.conf
+- name: sysctl -a
+  shell: sysctl  -p /etc/sysctl.d/hadoop-sysctl.conf

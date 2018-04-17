@@ -1,0 +1,14 @@
+---
+
+- name: start data-node
+  become: true
+  become_method: su
+  shell: source /etc/profile.d/hadoop-env.sh;/export/App/hadoop-2.6.1/sbin/hadoop-daemon.sh start datanode
+  become_user: hadoop
+
+- name: start node-manager
+  become: true
+  become_method: su
+  shell: source /etc/profile.d/hadoop-env.sh; /export/App/hadoop-2.6.1/sbin/yarn-daemon.sh start nodemanager
+  become_user: hadoop
+ 

@@ -1,0 +1,9 @@
+- name: "stop ntpd"
+  service: name=ntpd state=stopped
+- name: "rsync time"
+  shell: ntpdate {{ ntp_server }}
+- name: "copy ntp.conf"
+  copy: src=/etc/ntp.conf dest=/etc/ntp.conf
+- name: "start ntpd"
+  service: name=ntpd state=started 
+

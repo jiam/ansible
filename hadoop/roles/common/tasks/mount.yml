@@ -1,0 +1,41 @@
+---
+- name: mkdir mount point
+  file:
+    path: '/{{ item.src }}'
+    state: directory
+    owner: hadoop
+    group: hadoop
+  with_items:
+    - { src: 'data0'}
+    - { src: 'data1'}
+    - { src: 'data2'}
+    - { src: 'data3'}
+    - { src: 'data4'}
+    - { src: 'data5'}
+    - { src: 'data6'}
+    - { src: 'data7'}
+    - { src: 'data8'}
+    - { src: 'data9'}
+    - { src: 'data10'}
+    - { src: 'data11'}
+
+- name: mount sd* xfs
+  mount: 
+    src: '/dev/{{ item.src }}' 
+    path: '/{{ item.dest }}' 
+    fstype: xfs
+    opts: noatime
+    state: mounted
+  with_items:
+    - { src: 'sdb', dest: 'data0' }
+    - { src: 'sdc', dest: 'data1' }
+    - { src: 'sdd', dest: 'data2' }
+    - { src: 'sde', dest: 'data3' }
+    - { src: 'sdf', dest: 'data4' }
+    - { src: 'sdg', dest: 'data5' }
+    - { src: 'sdh', dest: 'data6' }
+    - { src: 'sdi', dest: 'data7' }
+    - { src: 'sdj', dest: 'data8' }
+    - { src: 'sdk', dest: 'data9' }
+    - { src: 'sdl', dest: 'data10' }
+    - { src: 'sdm', dest: 'data11' }

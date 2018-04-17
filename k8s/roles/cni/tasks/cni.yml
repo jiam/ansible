@@ -1,0 +1,40 @@
+---
+
+- name: mkdir /etc/kubernetes/cni/net.d
+  file:
+    path: /etc/kubernetes/cni/net.d
+    state: directory
+  tags: 
+    - cni
+
+- name: copy 10-mynet.conf
+  copy:
+    src: 10-mynet.conf
+    dest: /etc/kubernetes/cni/net.d/10-mynet.conf
+  tags: 
+    - cni
+
+
+- name: mkdir /export/servers/cni/bin
+  file:
+    path: /export/servers/cni/bin
+    state: directory
+  tags: 
+    - cni
+
+
+- name: copy cni
+  unarchive:
+    creates: /export/servers/cni/bin/cnitool
+    src: cni-amd64-v0.6.0.tgz
+    dest: /export/servers/cni/bin
+  tags:
+    - cni
+
+- name: copy cni plugins
+  unarchive:
+    creates: /export/servers/cni/bin/host-local
+    src: cni-plugins-amd64-v0.6.0.tgz
+    dest: /export/servers/cni/bin
+  tags:
+    - cni

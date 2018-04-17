@@ -1,0 +1,8 @@
+---
+
+- name: config hosts
+  hosts: all
+  
+  roles:
+    - init_disk_nvme
+

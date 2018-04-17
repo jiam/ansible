@@ -1,0 +1,10 @@
+---
+- import_tasks: hosts.yml
+- import_tasks: limits.yml
+- import_tasks: add_user.yml
+- import_tasks: sysctl.yml
+- import_tasks: yum.yml
+# - import_tasks: ntp.yml
+- import_tasks: hadoop_env.yml
+- import_tasks: mkfs_xfs.yml
+- import_tasks: ssh_key.yml

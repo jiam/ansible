@@ -1,0 +1,6 @@
+---
+
+- name: /etc/security/limits.d/{{ hadoop_user }}
+  template:
+    src: limits.conf.j2
+    dest: /etc/security/limits.d/{{ hadoop_user }}

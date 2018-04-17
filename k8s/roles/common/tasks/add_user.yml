@@ -1,0 +1,14 @@
+---
+
+- name: add user
+  user: 
+    name: "{{ hadoop_user }}"
+    comment: "hadoop cluster admin"
+
+- name: delete user
+  user:
+    name: hadoop_user
+    comment: "delete user hadoop_user"
+    state: absent
+    remove: yes
+  

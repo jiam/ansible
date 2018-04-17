@@ -1,0 +1,14 @@
+---
+
+- hosts: all
+  tasks: 
+    - name: mkfs
+      filesystem: 
+        fstype: xfs
+        dev: '/dev/{{ item.disk }}'
+      with_items:
+        - { "disk": "sdb"}
+        - { "disk": "sdc"}
+        - { "disk": "sdd"}
+        - { "disk": "sde"}
+

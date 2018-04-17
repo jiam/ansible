@@ -1,0 +1,50 @@
+---
+- name: copy k8s
+  unarchive: 
+    creates: /export/servers/kubernetes
+    src: kubernetes-server-linux-amd64.tar.gz
+    dest: /export/servers
+  tags: 
+    - kubelet
+
+- name: link cert
+  file:
+    src: /etc/kubernetes/ssl/cert/{{ ansible_eth0.ipv4.address }}.pem
+    dest: /etc/kubernetes/ssl/cert/kubelet.pem
+    state: link
+  tags:
+    - kubelet
+
+- name: link cert
+  file:
+    src: /etc/kubernetes/ssl/cert/{{ ansible_eth0.ipv4.address }}-key.pem
+    dest: /etc/kubernetes/ssl/cert/kubelet-key.pem
+    state: link
+  tags:
+    - kubelet
+
+- name: copy kubelet-kubeconfig
+  copy:
+    src: kube-config/kubelet-kubeconfig
+    dest: /etc/kubernetes/kubelet-kubeconfig
+  tags:
+    -  kubelet
+
+- name: copy kubelet systemd config
+  template:
+    src: kubelet.service.j2
+    dest: /etc/systemd/system/kubelet.service
+  tags:
+    - kubelet
+
+- name: reload systemd
+  shell: systemctl daemon-reload
+  tags:
+    - kubelet
+
+- name: start kubelet
+  service:
+    name: kubelet
+    state: restarted
+  tags: kubelet
+ 

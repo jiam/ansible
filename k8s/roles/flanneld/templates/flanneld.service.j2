@@ -1,0 +1,18 @@
+[Unit]
+Description=Kubernetes API Server
+Documentation=https://github.com/GoogleCloudPlatform/kubernetes
+After=network.target
+After=etcd.service
+
+[Service]
+ExecStart=/export/servers/flanneld \
+     --etcd-endpoints=http://192.168.10.20:2379,http://192.168.10.21:2379,http://192.168.10.22:2379 \
+     --public-ip={{ ansible_eth0.ipv4.address }} \
+     --iface=eth0
+     
+Restart=on-failure
+Type=notify
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,27 @@
+---
+- name: mkdir  hadoop
+  file:
+    path: '/{{ item.src }}/hadoop'
+    state: directory
+    owner: hadoop
+    group: hadoop
+  with_items:
+    - { src: 'data0'}
+    - { src: 'data1'}
+    - { src: 'data2'}
+    - { src: 'data3'}
+    - { src: 'data4'}
+    - { src: 'data5'}
+    - { src: 'data6'}
+    - { src: 'data7'}
+    - { src: 'data8'}
+    - { src: 'data9'}
+    - { src: 'data10'}
+    - { src: 'data11'}
+
+- name: mkdir  /var/run/hadoop-hdfs
+  file:
+    path: '/var/run/hadoop-hdfs'
+    state: directory
+    owner: hadoop
+    group: hadoop

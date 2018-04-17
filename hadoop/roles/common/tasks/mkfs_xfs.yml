@@ -1,0 +1,18 @@
+---
+
+- filesystem: 
+    fstype: xfs
+    dev: '/dev/{{ item.disk }}'
+    with_items:
+      - { "disk": "sdb"}
+      - { "disk": "sdc"}
+      - { "disk": "sdd"}
+      - { "disk": "sde"}
+      - { "disk": "sdf"}
+      - { "disk": "sdg"}
+      - { "disk": "sdh"}
+      - { "disk": "sdi"}
+      - { "disk": "sdj"}
+      - { "disk": "sdk"}
+      - { "disk": "sdl"}
+      - { "disk": "sdm"}

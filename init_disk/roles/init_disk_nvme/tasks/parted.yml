@@ -1,0 +1,40 @@
+---
+- name: parted disk  nvme1n1
+  parted:
+    device: "/dev/{{ item.disk }}"
+    number: "{{ item.number }}"
+    part_start: "{{ item.start }}"
+    part_end: "{{ item.end }}"
+    label: "gpt"
+    state: present
+  with_items:
+    - { "disk": "nvme1n1", "number": 1, "start": "0%", "end": "33%" }
+    - { "disk": "nvme1n1", "number": 2, "start": "33%", "end": "66%"}
+    - { "disk": "nvme1n1", "number": 3, "start": "66%", "end": "100%"}
+
+- name: parted disk  nvme2n1
+  parted:
+    device: '/dev/{{ item.disk }}'
+    number: "{{ item.number }}"
+    part_start: "{{ item.start }}"
+    part_end: "{{ item.end }}"
+    label: "gpt"
+    state: present
+  with_items:
+    - { "disk": "nvme2n1", "number": 1, "start": "0%", "end": "33%" }
+    - { "disk": "nvme2n1", "number": 2, "start": "33%", "end": "66%"}
+    - { "disk": "nvme2n1", "number": 3, "start": "66%", "end": "100%"}
+
+
+- name: parted disk  nvme3n1
+  parted:
+    device: '/dev/{{ item.disk }}'
+    number: "{{ item.number }}"
+    part_start: "{{ item.start }}"
+    part_end: "{{ item.end }}"
+    label: "gpt"
+    state: present
+  with_items:
+    - { "disk": "nvme3n1", "number": 1, "start": "0%", "end": "33%" }
+    - { "disk": "nvme3n1", "number": 2, "start": "33%", "end": "66%"}
+    - { "disk": "nvme3n1", "number": 3, "start": "66%", "end": "100%"}

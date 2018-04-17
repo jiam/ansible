@@ -1,0 +1,61 @@
+---
+
+- name: mkfs sdb xfs
+  filesystem: 
+    fstype: xfs
+    dev: /dev/sdb 
+
+- name: mkfs sdc xfs
+  filesystem: 
+    fstype: xfs
+    dev: /dev/sdc
+
+- name: mkfs sdd xfs
+  filesystem: 
+    fstype: xfs
+    dev: /dev/sdd
+
+- name: mkfs sde xfs
+  filesystem: 
+    fstype: xfs
+    dev: /dev/sde 
+  
+- name: mkfs sdf xfs
+  filesystem: 
+    fstype: xfs
+    dev: /dev/sdf 
+
+- name: mkfs sdg xfs
+  filesystem: 
+    fstype: xfs
+    dev: /dev/sdg
+
+- name: mkfs sdh xfs
+  filesystem: 
+    fstype: xfs
+    dev: /dev/sdh 
+
+- name: mkfs sdi xfs
+  filesystem: 
+    fstype: xfs
+    dev: /dev/sdi
+
+- name: mkfs sdj xfs
+  filesystem: 
+    fstype: xfs
+    dev: /dev/sdj
+
+- name: mkfs sdk xfs
+  filesystem: 
+    fstype: xfs
+    dev: /dev/sdk 
+
+- name: mkfs sdl xfs
+  filesystem: 
+    fstype: xfs
+    dev: /dev/sdl 
+
+- name: mkfs sdm xfs
+  filesystem: 
+    fstype: xfs
+    dev: /dev/sdm 

@@ -1,0 +1,5 @@
+---
+
+- import_tasks: k8s.yml
+- import_tasks: kubelet.yml
+- import_tasks: kube-proxy.yml

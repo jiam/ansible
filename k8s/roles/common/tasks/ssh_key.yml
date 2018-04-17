@@ -1,0 +1,8 @@
+---
+
+- name: Set authorized key hadoop
+  authorized_key:
+    user: hadoop
+    state: present
+    key: "{{ lookup('file', '/home/hadoop/.ssh/id_rsa.pub') }}"
+

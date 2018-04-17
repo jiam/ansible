@@ -1,0 +1,6 @@
+---
+
+- name: /etc/profile.d/hadoop-env.sh
+  copy: src=hadoop-env.sh dest=/etc/profile.d/hadoop-env.sh
+- name: source hadoop-env.sh
+  shell: source /etc/profile.d/hadoop-env.sh

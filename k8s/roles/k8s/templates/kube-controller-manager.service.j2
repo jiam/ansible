@@ -1,0 +1,19 @@
+[Unit]
+Description=Kubernetes Controller Manager
+Documentation=https://github.com/GoogleCloudPlatform/kubernetes
+
+[Service]
+EnvironmentFile=-/export/servers/kubernetes/environ/controller-manager
+ExecStart=/export/servers/kubernetes/server/bin/kube-controller-manager \
+    --master=https://{{ ansible_eth0.ipv4.address }} \
+    --leader-elect=true \
+    --service-account-private-key-file=/etc/kubernetes/ssl/cert/apiserver-key.pem \
+    --root-ca-file=/etc/kubernetes/ssl/cert/ca.pem \
+    --kubeconfig=/etc/kubernetes/cm-kubeconfig 
+    
+Restart=on-failure
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target
+

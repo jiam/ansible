@@ -1,0 +1,13 @@
+---
+
+hosts: |
+  172.0.0.1    test1
+  172.0.0.2     test2
+
+hadoop_user: hadoop
+soft_nofile: 204800
+hard_nofile: 204800
+soft_nproc: 204800
+hard_nproc: 204800
+ntp_server: xxx.com
+brokerid: 0

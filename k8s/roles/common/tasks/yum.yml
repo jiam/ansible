@@ -1,0 +1,4 @@
+---
+
+- name: /etc/yum.repos.d/CentOS-Base.repo
+  copy: src=CentOS-Base.repo  dest=/etc/yum.repos.d/CentOS-Base.repo

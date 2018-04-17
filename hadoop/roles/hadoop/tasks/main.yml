@@ -1,0 +1,10 @@
+---
+- import_tasks: cp_jdk_hadoop.yml
+- import_tasks: mkdir_hadoop.yml
+- import_tasks: start_node.yml
+- import_tasks: ssh_key.yml
+- import_tasks: kafka.yml
+- import_tasks: start_kafka.yml
+- import_tasks: stop_kafka.yml
+- import_tasks: hadoop_conf.yml
+- import_tasks: kafka_env.yml

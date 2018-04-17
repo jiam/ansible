@@ -1,0 +1,32 @@
+---
+
+- name: mkdir /export/servers
+  file:
+    path: /export/servers
+    state: directory
+  tags:
+    - etcd
+
+- name: copy etcd
+  unarchive: 
+    creates: /export/servers/etcd-v3.2.10-linux-amd64
+    src: etcd-v3.2.10-linux-amd64.tar.gz
+    dest: /export/servers
+  tags: 
+    - etcd
+
+- name: config etcd systemd
+  template:
+    src: etcd.service.j2
+    dest: /etc/systemd/system/etcd.service
+  tags: 
+    - etcd
+
+- name: start etcd
+  service:
+    name: etcd
+    state: started
+  tags: 
+    - etcd
+
+

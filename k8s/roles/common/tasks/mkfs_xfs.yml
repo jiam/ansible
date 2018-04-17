@@ -1,0 +1,9 @@
+---
+
+- name: mkfs sdb xfs
+  filesystem: 
+    fstype: xfs
+    dev: '/dev/{{ item.disk }}'
+    with_items:
+      - { "disk": "sdb"}
+

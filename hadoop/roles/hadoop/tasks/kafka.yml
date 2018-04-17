@@ -1,0 +1,51 @@
+---
+- name: Extract kafka_2.11-0.10.1.1.tar.gz  into /export/App
+  unarchive:
+    creates: kafka_2.11-0.10.1.1
+    src: kafka_2.11-0.10.1.1.tar.gz
+    dest: /export/App
+    owner: hadoop
+    group: hadoop
+  tags: kafka1
+
+- name: kafka1 config
+  template:
+    src: kafka1.j2
+    dest: /export/App/kafka_2.11-0.10.1.1/config/server.properties
+  tags: kafka1
+
+- name: Extract kafka_2.10-0.8.2.1.tgz  into /export/App
+  unarchive:
+    creates: kafka_2.10-0.8.2.1
+    src: kafka_2.10-0.8.2.1.tgz
+    dest: /export/App
+    owner: hadoop
+    group: hadoop
+  tags: kafka2
+
+- name: kafka2 config
+  template:
+    src: kafka2.j2
+    dest: /export/App/kafka_2.10-0.8.2.1/config/server.properties
+  tags: kafka2
+
+- name: mkdir kafkalog
+  file:
+    path: '/{{ item.src }}/kafka-logs'
+    state: directory
+    owner: hadoop
+    group: hadoop
+  with_items:
+    - { src: 'data0'}
+    - { src: 'data1'}
+    - { src: 'data2'}
+    - { src: 'data3'}
+    - { src: 'data4'}
+    - { src: 'data5'}
+    - { src: 'data6'}
+    - { src: 'data7'}
+    - { src: 'data8'}
+    - { src: 'data9'}
+    - { src: 'data10'}
+    - { src: 'data11'}
+  tags: kafka2

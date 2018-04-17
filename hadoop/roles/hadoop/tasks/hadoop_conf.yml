@@ -1,0 +1,9 @@
+---
+- name: hadoop slave
+  copy:   
+    src: slaves
+    dest: /export/App/hadoop-2.6.1/etc/hadoop/slaves
+    owner: hadoop
+    group: hadoop
+
+    

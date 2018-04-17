@@ -1,0 +1,34 @@
+---
+
+- name: get uuid
+  command: blkid -s UUID  -o value  /dev/{{ item }}
+  register: disk 
+  with_items:
+    - nvme1n1p1
+    - nvme1n1p2
+    - nvme1n1p3
+    - nvme2n1p1
+    - nvme2n1p2
+    - nvme2n1p3
+    - nvme3n1p1
+    - nvme3n1p2
+    - nvme3n1p3
+
+- name: mount parted 
+  mount: 
+    src: UUID={{ item.src }}
+    path: "{{ item.dest }}"
+    fstype: ext4
+    opts: noatime
+    state: mounted
+  with_items:
+    - { src: "{{ disk.results[0].stdout }}", dest: "/data1" }
+    - { src: "{{ disk.results[1].stdout }}", dest: "/data2" }
+    - { src: "{{ disk.results[2].stdout }}", dest: "/data3" }
+    - { src: "{{ disk.results[3].stdout }}", dest: "/data4" }
+    - { src: "{{ disk.results[4].stdout }}", dest: "/data5" }
+    - { src: "{{ disk.results[5].stdout }}", dest: "/data6" }
+    - { src: "{{ disk.results[6].stdout }}", dest: "/data7" }
+    - { src: "{{ disk.results[7].stdout }}", dest: "/data8" }
+    - { src: "{{ disk.results[8].stdout }}", dest: "/data9" }
+

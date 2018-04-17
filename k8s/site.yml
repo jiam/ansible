@@ -1,0 +1,13 @@
+---
+
+- name: config hosts
+  hosts: k8s-api
+  
+  roles:
+    - common
+    - hadoop
+    - docker
+    - etcd
+    - k8s
+    - flanneld
+    - cni

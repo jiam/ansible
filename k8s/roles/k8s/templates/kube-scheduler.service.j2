@@ -1,0 +1,18 @@
+[Unit]
+Description=Kubernetes Scheduler Plugin
+Documentation=https://github.com/GoogleCloudPlatform/kubernetes
+
+[Service]
+#EnvironmentFile=-/export/servers/kubernetes/environ/scheduler
+ExecStart=/export/servers/kubernetes/server/bin/kube-scheduler \
+    --master=https://{{ ansible_eth0.ipv4.address }} \
+    --leader-elect=true \
+    --kubeconfig=/etc/kubernetes/sh-kubeconfig 
+
+
+Restart=on-failure
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target
+

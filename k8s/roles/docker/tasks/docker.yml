@@ -1,0 +1,74 @@
+---
+- name: remove  docker 
+  yum:
+    name: docker
+    state: absent
+  tags: docker
+
+- name: remove  docker-common
+  yum:
+    name: docker-common
+    state: absent
+  tags: docker
+
+- name: remove  docker-selinux 
+  yum:
+    name: docker-selinux
+    state: absent
+  tags: docker
+
+- name: remove  docker-engine
+  yum:
+    name: docker-engine
+    state: absent
+  tags: docker
+
+- name: install yum-utils
+  yum:
+    name: yum-utils
+    state: present
+  tags: docker
+
+- name: install device-mapper-persistent-data
+  yum:
+    name: device-mapper-persistent-data
+    state: present
+  tags: docker
+
+- name: install lvm2
+  yum:
+    name: lvm2
+    state: present
+  tags: docker
+
+- name: add  repo  docker-ce
+  shell: >
+    yum-config-manager 
+    --add-repo 
+    https://download.docker.com/linux/centos/docker-ce.repo
+  tags: docker
+
+- name: install docker-ce
+  yum:
+    name: docker-ce
+    state: present
+  tags: docker
+
+- name: mkdir /etc/docker
+  file:
+    path: /etc/docker
+    state: directory
+  tags: docker
+
+- name: copy daemon.json
+  copy:
+    src: daemon.json
+    dest: /etc/docker/daemon.json
+  tags: docker
+
+- name:
+  service:
+    name: docker
+    state: started
+  tags: docker
+

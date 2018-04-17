@@ -1,0 +1,25 @@
+[Unit]
+Description=Kubernetes Scheduler Plugin
+Documentation=https://github.com/GoogleCloudPlatform/kubernetes
+
+[Service]
+ExecStart=/export/servers/kubernetes/server/bin/kubelet \
+  --kubeconfig=/etc/kubernetes/kubelet-kubeconfig \
+  --cni-conf-dir=/etc/kubernetes/cni/net.d \
+  --cni-bin-dir=/export/servers/cni/bin \
+  --network-plugin=cni \
+  --container-runtime=docker \
+  --register-node=true \
+  --allow-privileged=true \
+  --pod-manifest-path=/etc/kubernetes/manifests \
+  --hostname-override={{ ansible_eth0.ipv4.address }} \
+  --cluster_dns=10.3.0.2 \
+  --cluster_domain=cluster.local \
+  --tls-cert-file=/etc/kubernetes/ssl/cert/kubelet.pem \
+  --tls-private-key-file=/etc/kubernetes/ssl/cert/kubelet-key.pem \
+  --require-kubeconfig 
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

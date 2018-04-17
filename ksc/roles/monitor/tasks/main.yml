@@ -1,0 +1,31 @@
+---
+# This playbook contains common plays that will be run on all nodes.
+
+- name: Install OpenIPMI 
+  yum: name=OpenIPMI state=present
+  when: ansible_system_vendor != 'Dell Inc.'
+
+- name: Install ipmi
+  yum: name=ipmitool state=present
+  when: ansible_system_vendor != 'Dell Inc.'
+
+- name: deploy Mega
+  #synchronize: src=/opt/MegaRAID  dest=/opt 
+  unarchive: src=/opt/MegaRAID.tgz dest=/opt
+  when: ansible_system_vendor != 'Dell Inc.'
+
+- name: deploy ksc
+  unarchive: src=/opt/zenoss_scripts.tgz  dest=/opt
+  when: ansible_system_vendor != 'Dell Inc.'
+- name: Start the ipmi service
+  service: name=ipmi state=running enabled=true
+  when: ansible_system_vendor != 'Dell Inc.'
+
+- name: Install open manage
+  yum: name=srvadmin-storageservices-snmp,srvadmin-server-snmp,srvadmin-deng-snmp
+  when: ansible_system_vendor == 'Dell Inc.'
+
+- name: run open manage
+  raw: /opt/dell/srvadmin/sbin/srvadmin-services.sh start
+  when: ansible_system_vendor == 'Dell Inc.'
+
