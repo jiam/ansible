@@ -1,0 +1,8 @@
+DEVICE=eth0
+TYPE=Ethernet
+ONBOOT=yes
+BOOTPROTO=none
+USERCTL=no
+HWADDR={{ ansible_eth0.macaddress }}
+MASTER=bond0
+SLAVE=yes
